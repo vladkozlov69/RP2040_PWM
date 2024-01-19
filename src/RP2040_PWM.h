@@ -337,7 +337,7 @@ class RP2040_PWM
     pwm_config_set_wrap(&config, _PWM_config.top);
     
     // auto start running once configured
-    pwm_init(_slice_num, &config, true);
+    pwm_init(_slice_num, pwm_gpio_to_channel(_pin), &config, true);
     pwm_set_gpio_level(_pin, level);
     
     // Store and flag so that simpler setPWM_manual() can be called without top and div
@@ -475,7 +475,7 @@ class RP2040_PWM
         else
         {
           // auto start running once configured
-          pwm_init(_slice_num, &config, true);
+          pwm_init(_slice_num, pwm_gpio_to_channel(_pin), &config, true);
         }
         
         uint32_t PWM_level = ( _PWM_config.top * (_dutycycle / 2) ) / 50000;
@@ -614,7 +614,7 @@ class RP2040_PWM
         else
         {
           // auto start running once configured
-          pwm_init(_slice_num, &config, true);
+          pwm_init(_slice_num, pwm_gpio_to_channel(_pin), &config, true);
         }
         
         uint32_t PWM_level = ( _PWM_config.top * (_dutycycle / 2) ) / 50000;
